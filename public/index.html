@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>بوابة الصف 11 - ملفات تعليمية</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img class="logo-img" src="/assets/logo.svg" alt="بوابة الصف 11" height="36" />
+      </div>
+      <nav class="nav">
+        <button id="toggleSidebar" class="btn">☰ القائمة</button>
+        <button id="adminModeBtn" class="btn">وضع المشرف</button>
+        <a href="#upload" class="btn primary">رفع ملف</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar" aria-label="التنقل بين المواد">
+      <div class="sidebar-inner">
+        <h3>المواد</h3>
+        <ul id="sidebarSubjects" class="sidebar-list"></ul>
+        <hr />
+        <div class="chat-box card">
+          <h4>دردشة المدرسة</h4>
+          <div class="chat-presence" style="margin-bottom:8px">
+            <label style="display:block;margin-bottom:6px">اسمك</label>
+            <div style="display:flex;gap:6px">
+              <input id="chatName" type="text" placeholder="اسمك" style="flex:1" />
+              <button id="setNameBtn" class="btn" type="button">حفظ</button>
+            </div>
+          </div>
+          <div class="chat-split" style="display:grid;grid-template-columns:120px 1fr;gap:8px">
+            <div>
+              <div class="badge" style="display:block;margin-bottom:6px">متصلون</div>
+              <div id="chatUsers" class="chat-users" style="border:1px solid var(--border);border-radius:10px;padding:6px;background:#fff;height:120px;overflow:auto"></div>
+            </div>
+            <div>
+              <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+              <form id="chatForm" class="chat-form" style="margin-top:6px">
+                <input id="chatText" type="text" placeholder="اكتب رسالة..." required />
+                <button class="btn" type="submit">إرسال</button>
+              </form>
+              <form id="dmForm" class="chat-form" style="margin-top:6px">
+                <select id="dmTo"></select>
+                <input id="dmText" type="text" placeholder="رسالة خاصة..." />
+                <button class="btn" type="submit">إرسال خاص</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="container main">
+      <section class="hero">
+        <h2>منصة تعليمية بسيطة وحديثة</h2>
+        <p>رفع ومشاركة ملفات PDF وWord والصور والفيديوهات القصيرة، مع البحث والتعليقات.</p>
+      </section>
+
+      <section class="subjects" aria-label="أقسام المواد">
+        <div class="section-title">
+          <h3>المواد الدراسية</h3>
+        </div>
+        <div class="subjects-grid" id="subjectsGrid"></div>
+      </section>
+
+      <section class="actions" aria-label="بحث وتصفية">
+        <div class="filters">
+          <div class="field">
+            <label for="subjectFilter">المادة</label>
+            <select id="subjectFilter">
+              <option value="">الكل</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="typeFilter">النوع</label>
+            <select id="typeFilter">
+              <option value="">الكل</option>
+              <option value="pdf">PDF</option>
+              <option value="word">Word</option>
+              <option value="image">صور</option>
+              <option value="video">فيديو</option>
+            </select>
+          </div>
+          <div class="field grow">
+            <label for="searchInput">بحث</label>
+            <input id="searchInput" type="search" placeholder="ابحث بالعنوان أو الكلمات المفتاحية" />
+          </div>
+          <button id="searchBtn" class="btn">بحث</button>
+        </div>
+      </section>
+
+      <section class="upload" id="upload" aria-label="رفع ملف">
+        <div class="section-title">
+          <h3>رفع ملف جديد</h3>
+        </div>
+        <form id="uploadForm" class="card" enctype="multipart/form-data">
+          <div class="grid-2">
+            <div class="field">
+              <label for="title">العنوان</label>
+              <input id="title" name="title" type="text" placeholder="اكتب عنوانًا واضحًا" />
+            </div>
+            <div class="field">
+              <label for="subject">المادة</label>
+              <select id="subject" name="subject" required></select>
+            </div>
+            <div class="field">
+              <label for="uploaderName">الاسم</label>
+              <input id="uploaderName" name="uploaderName" type="text" placeholder="اسم الطالب/المعلم" />
+            </div>
+            <div class="field">
+              <label>الدور</label>
+              <div class="radio-group">
+                <label><input type="radio" name="uploaderRole" value="طالب" checked /> طالب</label>
+                <label><input type="radio" name="uploaderRole" value="معلم" /> معلم</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="keywords">كلمات مفتاحية</label>
+              <input id="keywords" name="keywords" type="text" placeholder="مثال: تكامل, دوائر كهربائية" />
+            </div>
+            <div class="field full">
+              <label for="file">الملف (PDF / Word / صورة / فيديو قصير)</label>
+              <input id="file" name="file" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.gif,.webp,.mp4,.webm,.mov,.m4v,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*,video/*" required />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn primary" type="submit">رفع</button>
+            <span id="uploadStatus" class="status" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="files" aria-label="الملفات المرفوعة">
+        <div class="section-title">
+          <h3>الملفات</h3>
+        </div>
+        <div id="filesList" class="files-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Comments Modal -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content" role="document">
+      <button class="modal-close" title="إغلاق" data-close>✕</button>
+      <h4 id="modalTitle">التعليقات</h4>
+      <div id="commentsContainer" class="comments-container"></div>
+      <form id="commentForm" class="comment-form">
+        <input type="hidden" id="commentFileId" />
+        <div class="grid-2">
+          <div class="field">
+            <label for="commentName">الاسم</label>
+            <input id="commentName" type="text" placeholder="اسمك" />
+          </div>
+          <div class="field full">
+            <label for="commentText">اكتب تعليقك</label>
+            <textarea id="commentText" rows="3" placeholder="تعليق مفيد ومحترم"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">إضافة تعليق</button>
+          <span id="commentStatus" class="status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>
+        © جميع الحقوق محفوظة —
+        <a href="https://t.me/iivoz" target="_blank" rel="noopener">iivoz</a>
+        • قناتي تيليجرام:
+        <a href="https://t.me/Advvvv11" target="_blank" rel="noopener">@Advvvv11</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-fFvE5GQ7wKOhh9S9Sdv4p8A7nJIPvZ7uBmyM8+v9v0p9r2m1cQpO2P3pH5d2Qm8V" crossorigin="anonymous"></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

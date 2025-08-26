@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+/* ==========================
+   Theme Variables
+========================== */
+:root{
+  --bg: #f5f7fb;
+  --bg-gradient: radial-gradient(1200px 600px at 80% -10%, #eaf3ff 0%, transparent 60%),
+                  radial-gradient(1000px 500px at -10% 10%, #e7fff6 0%, transparent 60%),
+                  #f7f8fc;
+  --card: #ffffff;
+  --text: #151a25;
+  --muted: #667085;
+  --primary: #4F46E5;      /* Indigo */
+  --primary-600:#4338CA;
+  --accent: #22C55E;       /* Green */
+  --accent-600:#16A34A;
+  --border:#e6e8ee;
+  --shadow: 0 10px 30px rgba(20,30,50,.10);
+  --shadow-lg: 0 16px 40px rgba(20,30,50,.14);
+  --ring: 0 0 0 3px rgba(79,70,229,.18);
+  --grad-soft: linear-gradient(135deg, #eef2ff, #f0fdf4);
+  --grad-cta: linear-gradient(135deg, #4F46E5, #22C55E);
+}
+
+/* ==========================
+   Base
+========================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg-gradient);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* ==========================
+   Header
+========================== */
+.app-header{
+  position:sticky;top:0;z-index:30;
+  backdrop-filter:saturate(1.2) blur(6px);
+  background:rgba(255,255,255,.75);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo-img{display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.06))}
+.nav .btn{margin-inline-start:8px}
+
+/* ==========================
+   Layout
+========================== */
+.layout{display:grid;grid-template-columns:280px 1fr;gap:18px;margin:18px 16px}
+@media (max-width: 980px){.layout{grid-template-columns:1fr;margin:12px 8px}}
+
+.sidebar{position:sticky;top:76px;height:calc(100vh - 90px)}
+.sidebar-inner{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  box-shadow:var(--shadow);
+}
+.sidebar h3{margin:6px 0 10px}
+.sidebar-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.sidebar-list li{display:flex;align-items:center;justify-content:space-between}
+.sidebar a{
+  display:flex;gap:10px;align-items:center;
+  text-decoration:none;color:var(--text);
+  padding:12px 12px;border-radius:12px;border:1px solid transparent;
+  transition:.2s background,.2s box-shadow,.2s transform,.2s border-color;
+}
+.sidebar a:hover{background:#f7fbff;border-color:#d9e8ff;transform:translateY(-1px);box-shadow:var(--shadow)}
+.sidebar .count{font-size:12px;color:var(--muted)}
+#toggleSidebar{display:none}
+@media (max-width: 980px){
+  #toggleSidebar{display:inline-block}
+  .sidebar{display:none}
+  .sidebar.open{display:block;position:fixed;inset:70px 0 0 0;background:rgba(0,0,0,.25)}
+  .sidebar-inner{max-width:340px;margin:0 0 0 auto;height:100%;overflow:auto}
+}
+
+/* ==========================
+   Hero
+========================== */
+.hero{
+  padding:26px;margin:0 0 6px 0;
+  background:var(--grad-soft);
+  border:1px solid var(--border);
+  border-radius:16px;box-shadow:var(--shadow);
+}
+.hero h2{margin:0 0 6px 0;font-weight:700}
+.hero p{margin:0;color:var(--muted)}
+
+/* ==========================
+   Subjects Grid
+========================== */
+.section-title h3{margin:22px 4px 12px}
+.subjects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.subject-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;
+  box-shadow:var(--shadow);
+  transition:.25s transform,.25s box-shadow, .25s border-color;
+}
+.subject-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#d9e8ff}
+.subject-card .icon{font-size:24px}
+.subject-card .name{font-weight:700}
+/* ألوان لطيفة متناوبة للبطاقات */
+.subject-card:nth-child(6n+1){background:linear-gradient(180deg,#ffffff,#f2f7ff)}
+.subject-card:nth-child(6n+2){background:linear-gradient(180deg,#ffffff,#f4fff7)}
+.subject-card:nth-child(6n+3){background:linear-gradient(180deg,#ffffff,#fff6f6)}
+.subject-card:nth-child(6n+4){background:linear-gradient(180deg,#ffffff,#f8f7ff)}
+.subject-card:nth-child(6n+5){background:linear-gradient(180deg,#ffffff,#f6fbff)}
+
+/* ==========================
+   Filters / Forms
+========================== */
+.actions .filters{
+  display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:14px;box-shadow:var(--shadow);
+}
+.field{display:flex;flex-direction:column;gap:6px;min-width:170px}
+.field.full{grid-column:1/-1}
+.field.grow{flex:1}
+label{font-weight:600;color:#334155}
+input, select, textarea{
+  padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;outline:none;transition:.2s border-color,.2s box-shadow;
+}
+input:focus, select:focus, textarea:focus{border-color:var(--primary);box-shadow:var(--ring)}
+
+/* ==========================
+   Buttons
+========================== */
+.btn{
+  padding:10px 14px;border-radius:12px;border:1px solid var(--primary);
+  background:#fff;color:var(--primary);cursor:pointer;transition:.2s;
+  font-weight:600;
+}
+.btn:hover{background:#f0f6ff}
+.btn:active{transform:translateY(1px)}
+.btn.primary{
+  background:var(--grad-cta);color:#fff;border-color:transparent;
+  box-shadow:0 6px 16px rgba(79,70,229,.25);
+}
+.btn.primary:hover{filter:brightness(.98)}
+.btn.ghost{border-color:#dfe3ec;color:#344054}
+.btn.ghost:hover{background:#f8fafc}
+.btn.danger{border-color:#ef4444;color:#ef4444}
+.btn.danger:hover{background:#fee2e2}
+.icon-btn{display:inline-flex;align-items:center;gap:8px}
+
+/* ==========================
+   Cards / Utilities
+========================== */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--shadow);}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:760px){.grid-2{grid-template-columns:1fr}}
+.form-actions{display:flex;align-items:center;gap:10px;margin-top:10px}
+.status{color:var(--muted)}
+.badge{padding:4px 10px;border-radius:999px;background:#eef6ff;color:#334155;border:1px solid #d7e7fb;font-size:12px}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{background:#f1f5f9;border:1px solid #e2e8f0;padding:4px 10px;border-radius:999px;font-size:12px;color:#475569}
+
+/* ==========================
+   Files List
+========================== */
+.files-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.file-card{background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);overflow:hidden;transition:.25s transform,.25s box-shadow}
+.file-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.file-thumb{width:100%;height:170px;display:flex;align-items:center;justify-content:center;background:#f3f6ff;border-bottom:1px solid var(--border);overflow:hidden;position:relative}
+.file-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(15,23,42,.06), transparent)}
+.file-thumb img{max-width:100%;max-height:100%;object-fit:cover}
+.file-thumb video{max-width:100%;max-height:100%}
+.file-body{padding:14px}
+.file-card .title{font-weight:800;line-height:1.35}
+.file-card .meta{font-size:13px;color:var(--muted)}
+.file-card .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* ==========================
+   Chat
+========================== */
+.chat-box{display:flex;flex-direction:column;gap:8px}
+.chat-box.card{margin:8px;padding:12px}
+.chat-box h4{margin:0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:14px}
+.chat-box h4::after{content:'▾';font-size:12px;color:var(--muted)}
+.chat-box.collapsed h4::after{content:'▸'}
+.chat-box.collapsed .chat-presence,
+.chat-box.collapsed .chat-split{display:none}
+
+.chat-messages{height:120px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:6px;background:#fff}
+.chat-users{height:70px !important; overflow:auto}
+.chat-msg{margin:6px 0;padding:6px 8px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;font-size:13px}
+.chat-msg .who{font-weight:700;font-size:12px;color:#475569}
+.chat-form{display:grid;grid-template-columns:1fr 2fr auto;gap:6px}
+.chat-split{grid-template-columns:90px 1fr !important;gap:6px !important}
+@media (max-width: 980px){.chat-form{grid-template-columns:1fr}}
+
+/* ==========================
+   Modal
+========================== */
+.modal{position:fixed;inset:0;display:none}
+.modal[aria-hidden="false"]{display:block}
+.modal-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.50);backdrop-filter:blur(2px)}
+.modal-content{position:relative;margin:6vh auto;padding:18px;background:var(--card);border-radius:14px;border:1px solid var(--border);max-width:760px;width:92%;box-shadow:var(--shadow-lg)}
+.modal-close{position:absolute;inset-inline-end:12px;top:12px;border:0;background:transparent;font-size:18px;cursor:pointer}
+.comments-container{max-height:45vh;overflow:auto;margin-bottom:12px;border:1px dashed var(--border);border-radius:12px;padding:10px;background:#fff}
+.comment{padding:8px;border-bottom:1px solid var(--border)}
+.comment:last-child{border-bottom:0}
+.comment .who{font-weight:700}
+
+/* ==========================
+   Footer
+========================== */
+.app-footer{margin:34px 0 24px;color:var(--muted);text-align:center}
+.app-footer a{color:var(--primary);text-decoration:none}
+.app-footer a:hover{text-decoration:underline}
+
+/* ==========================
+   Animations
+========================== */
+@keyframes float-in{from{transform:translateY(6px);opacity:0}to{transform:translateY(0);opacity:1}}
+.subject-card,.file-card,.card{animation:float-in .35s ease both}
